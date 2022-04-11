@@ -1,0 +1,508 @@
+version: '3.5'
+# set image version after successfull setup 
+services:
+# # first stack
+#   camunda:
+#     container_name: Camunda-Platform
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7777:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper:
+#     container_name: Kampagne-Zookeeper
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka:
+#     container_name: Kampagne-Kafka
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9093:9093"
+#       - 9092:9092
+#     links:
+#       - "zookeeper:zookeeper"
+#     depends_on:
+#       - zookeeper
+      
+#   pollingclient:
+#     container_name: Camunda-Kafka-Polling-Client
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda:8080/engine-rest/
+#     links:
+#       - "kafka:kafka"
+#       - "camunda:camunda"
+#     depends_on:
+#       - kafka
+#       - camunda
+
+# second stack
+
+  camunda1:
+    container_name: Camunda-Platform1
+    image: manilakiller/camunda:latest
+    ports:
+      - "127.0.0.1:7778:8080"
+    expose:
+      - 8080
+    restart: unless-stopped
+      
+  zookeeper1:
+    container_name: Kampagne-Zookeeper1
+    image: wurstmeister/zookeeper:latest
+    expose: 
+      - 2181
+      
+  kafka1:
+    container_name: Kampagne-Kafka1
+    image: wurstmeister/kafka:latest
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092,EXTERNAL://localhost:9093
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
+    expose:
+      - 9092
+    ports:
+      - "127.0.0.1:9095:9093"
+      - 9094:9092
+    links:
+      - "zookeeper1:zookeeper1"
+    depends_on:
+      - zookeeper1
+      
+  pollingclient1:
+    container_name: Camunda-Kafka-Polling-Client1
+    image: viadee/camunda-kafka-polling-client:latest
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka1:9092
+      SPRING_PROFILES_ACTIVE: rest
+      CAMUNDA_REST_URL: http://camunda1:8080/engine-rest/
+    links:
+      - "kafka1:kafka1"
+      - "camunda1:camunda1"
+    depends_on:
+      - kafka1
+      - camunda1
+      
+# # third stack
+
+#   camunda2:
+#     container_name: Camunda-Platform2
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7779:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper2:
+#     container_name: Kampagne-Zookeeper2
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka2:
+#     container_name: Kampagne-Kafka2
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper2:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9097:9093"
+#       - 9096:9092
+#     links:
+#       - "zookeeper2:zookeeper2"
+#     depends_on:
+#       - zookeeper2
+      
+#   pollingclient2:
+#     container_name: Camunda-Kafka-Polling-Client2
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka2:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda2:8080/engine-rest/
+#     links:
+#       - "kafka2:kafka2"
+#       - "camunda2:camunda2"
+#     depends_on:
+#       - kafka2
+#       - camunda2
+      
+# # fourth stack
+
+#   camunda3:
+#     container_name: Camunda-Platform3
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7780:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper3:
+#     container_name: Kampagne-Zookeeper3
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka3:
+#     container_name: Kampagne-Kafka3
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper3:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9099:9093"
+#       - 9098:9092
+#     links:
+#       - "zookeeper3:zookeeper3"
+#     depends_on:
+#       - zookeeper3
+      
+#   pollingclient3:
+#     container_name: Camunda-Kafka-Polling-Client3
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka3:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda3:8080/engine-rest/
+#     links:
+#       - "kafka3:kafka3"
+#       - "camunda3:camunda3"
+#     depends_on:
+#       - kafka3
+#       - camunda3
+
+# # fifth stack
+
+#   camunda4:
+#     container_name: Camunda-Platform4
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7781:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper4:
+#     container_name: Kampagne-Zookeeper4
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka4:
+#     container_name: Kampagne-Kafka4
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka4:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper4:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9101:9093"
+#       - 9100:9092
+#     links:
+#       - "zookeeper4:zookeeper4"
+#     depends_on:
+#       - zookeeper4
+      
+#   pollingclient4:
+#     container_name: Camunda-Kafka-Polling-Client4
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka4:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda4:8080/engine-rest/
+#     links:
+#       - "kafka4:kafka4"
+#       - "camunda4:camunda4"
+#     depends_on:
+#       - kafka4
+#       - camunda4
+
+# # sixth stack
+
+#   camunda5:
+#     container_name: Camunda-Platform5
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7782:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper5:
+#     container_name: Kampagne-Zookeeper5
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka5:
+#     container_name: Kampagne-Kafka5
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka5:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper5:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9103:9093"
+#       - 9102:9092
+#     links:
+#       - "zookeeper5:zookeeper5"
+#     depends_on:
+#       - zookeeper5
+      
+#   pollingclient5:
+#     container_name: Camunda-Kafka-Polling-Client5
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka5:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda5:8080/engine-rest/
+#     links:
+#       - "kafka5:kafka5"
+#       - "camunda5:camunda5"
+#     depends_on:
+#       - kafka5
+#       - camunda5
+      
+# # seventh stack
+
+#   camunda6:
+#     container_name: Camunda-Platform6
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7783:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper6:
+#     container_name: Kampagne-Zookeeper6
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka6:
+#     container_name: Kampagne-Kafka6
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka6:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper5:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9105:9093"
+#       - 9104:9092
+#     links:
+#       - "zookeeper6:zookeeper6"
+#     depends_on:
+#       - zookeeper6
+      
+#   pollingclient6:
+#     container_name: Camunda-Kafka-Polling-Client6
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka6:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda6:8080/engine-rest/
+#     links:
+#       - "kafka6:kafka6"
+#       - "camunda6:camunda6"
+#     depends_on:
+#       - kafka6
+#       - camunda6 
+           
+# # eigth stack
+
+#   camunda7:
+#     container_name: Camunda-Platform7
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7784:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper7:
+#     container_name: Kampagne-Zookeeper7
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka7:
+#     container_name: Kampagne-Kafka7
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka7:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper5:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9107:9093"
+#       - 9106:9092
+#     links:
+#       - "zookeeper7:zookeeper7"
+#     depends_on:
+#       - zookeeper7
+      
+#   pollingclient7:
+#     container_name: Camunda-Kafka-Polling-Client7
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka7:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda7:8080/engine-rest/
+#     links:
+#       - "kafka7:kafka7"
+#       - "camunda7:camunda7"
+#     depends_on:
+#       - kafka7
+#       - camunda7    
+
+# # ninth stack
+
+#   camunda8:
+#     container_name: Camunda-Platform8
+#     image: camunda/kampagne-ai:latest
+#     ports:
+#       - "127.0.0.1:7785:8080"
+#     expose:
+#       - 8080
+#     restart: unless-stopped
+      
+#   zookeeper8:
+#     container_name: Kampagne-Zookeeper8
+#     image: wurstmeister/zookeeper:latest
+#     expose: 
+#       - 2181
+      
+#   kafka8:
+#     container_name: Kampagne-Kafka8
+#     image: wurstmeister/kafka:latest
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+#       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka8:9092,EXTERNAL://localhost:9093
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper5:2181
+#     expose:
+#       - 9092
+#     ports:
+#       - "127.0.0.1:9109:9093"
+#       - 9108:9092
+#     links:
+#       - "zookeeper8:zookeeper8"
+#     depends_on:
+#       - zookeeper8
+      
+#   pollingclient8:
+#     container_name: Camunda-Kafka-Polling-Client8
+#     image: viadee/camunda-kafka-polling-client:latest
+#     environment:
+#       KAFKA_BOOTSTRAP_SERVERS: kafka8:9092
+#       SPRING_PROFILES_ACTIVE: rest
+#       CAMUNDA_REST_URL: http://camunda8:8080/engine-rest/
+#     links:
+#       - "kafka8:kafka8"
+#       - "camunda8:camunda8"
+#     depends_on:
+#       - kafka8
+#       - camunda8   
+      
+# python
+      
+#  threshold-java:
+#    container_name: Business-Process-Outcome-Predictor-Model-Training-Jupyter-Python
+#    image: threshold-java:v5
+#    ports:
+#       - 8888:8888
+#    links:
+#       - "kafka:kafka"
+       
+#   threshold-java1:
+#     container_name: Business-Process-Outcome-Predictor-Model-Training-Jupyter-Python1
+#     image: threshold-java:v6
+#     ports:
+#        - 8889:8888
+#     links:
+#        - "kafka:kafka"
+#        - "kafka1:kafka1" 
+#        - "kafka2:kafka2"
+#        - "kafka3:kafka3"
+#        - "kafka4:kafka4"
+#        - "kafka5:kafka5"
+#        - "kafka6:kafka6"
+#        - "kafka7:kafka7"
+#        - "kafka8:kafka8" 
+                                                      
+  kampagne-ai:
+    container_name: Kampagne-AI
+    image: manilakiller/kampagne-ai:latest
+    ports:
+       - 8888:8888
+       - 8890:6006
+    links:
+#       - "kafka:kafka"
+       - "kafka1:kafka1" 
+#        - "kafka2:kafka2"
+#        - "kafka3:kafka3"
+#       - "kafka4:kafka4"
+#       - "kafka5:kafka5"
+#       - "kafka6:kafka6"
+#       - "kafka7:kafka7"
+#       - "kafka8:kafka8" 
+       
+#   threshold-python:
+#     container_name: Proactive-BPM-Adaptation-Threshold-Learning-Gym-Python
+#     image: threshold-python:v4
+#     command: bash -c "tail -f /dev/null"
+#     volumes:
+#        - ./python_src/:/threshold-learning/python_src
+#     environment: 
+#        - PYTHONPATH=/threshold-learning
+
+networks:
+  default:
+    name: kampagne-ai
+
