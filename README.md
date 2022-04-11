@@ -18,6 +18,9 @@ jupyter notebook list
 ```
 Camunda ist unter ```localhost:7778``` zu erreichen.
 
-Falls Camunda Probleme bereitet, ```docker compose build camunda1```.
+Falls Camunda Probleme bereitet, kann der Container neu kreiert werden:
+```
+docker-compose up --build --force-recreate --no-deps -d camunda1
+```
 
-Für eine Echtzeitvorhersage muss zunächst das Notebook ```Echtzeitvorhersage```, dann ```ORLDynamischerSchwellwert```` und als Letztes ```Simulation-ver_Standalone``` gestartet werden. Die anderen Notebooks lassen sich einzeln ausführen.
+Für eine Echtzeitvorhersage muss zunächst das Notebook ```Echtzeitvorhersage```, dann ```ORLDynamischerSchwellwert``` und als Letztes ```Simulation-ver_Standalone``` gestartet werden. Die anderen Notebooks lassen sich einzeln ausführen. ```Simulation-ver_RLRAMRessourcenzuweisung``` und ```Simulation-ver_RLRAM_Hyperparametertuning``` sind die primären Notebooks für die RL Ressourcenzuweisung. Nach der Ausführung einiger Prozessdurchläufe mit der Simulation, kann mit ```PySparkDatenpipeline``` ein Datenabzug stattfinden und ein Modell für Zeitvorhersagen mit ```PPMZeitvorhersage``` erstellt werden. Weiter kann ```PPMZeitvorhersage``` genutzt werden um Daten-Batches für ```VorhersageBatch``` zu generieren.
